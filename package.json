@@ -5,62 +5,8 @@
     "main": "build/lib/index.js",
     "typings": "build/lib/index",
     "scripts": {
-        "prebuild": "rimraf build",
         "build": "npm run tsc",
-        "pretsc": "npm run lint",
-        "tsc": "tsc",
-        "prewatch": "rimraf build",
-        "watch": "npm-watch",
-        "es6": "copyfiles -u 1 src/**/*.js build",
-        "lint": "tslint src/lib/**/*.ts -t verbose --force > .tslint",
-        "pretest": "rimraf report && rimraf coverage",
-        "test": "nyc mocha --reporter mochawesome --reporter-options reportDir=report,reportName=odata-v4-server,reportTitle=\"OData V4 Server\" src/test/**/*.spec.ts",
-        "test:http": "nyc mocha --reporter mochawesome --reporter-options reportDir=report,reportName=odata-v4-server,reportTitle=\"OData V4 Server\" src/test/**/http.spec.ts",
-        "test:execute": "nyc mocha --reporter mochawesome --reporter-options reportDir=report,reportName=odata-v4-server,reportTitle=\"OData V4 Server\" src/test/**/execute.spec.ts",
-        "test:stream": "nyc mocha --reporter mochawesome --reporter-options reportDir=report,reportName=odata-v4-server,reportTitle=\"OData V4 Server\" src/test/**/stream.spec.ts",
-        "test:metadata": "nyc mocha --reporter mochawesome --reporter-options reportDir=report,reportName=odata-v4-server,reportTitle=\"OData V4 Server\" src/test/**/metadata.spec.ts",
-        "test:validator": "nyc mocha --reporter mochawesome --reporter-options reportDir=report,reportName=odata-v4-server,reportTitle=\"OData V4 Server\" src/test/**/validator.spec.ts",
-        "test:projection": "nyc mocha --reporter mochawesome --reporter-options reportDir=report,reportName=odata-v4-server,reportTitle=\"OData V4 Server\" src/test/**/projection.spec.ts",
-        "prepare": "npm test && npm run build",
-        "typedoc": "rimraf docs && typedoc --name \"JayStack OData v4 Server\" --exclude \"**/?(utils|index).ts\" --excludeExternals --excludeNotExported --hideGenerator --excludePrivate --out docs src/lib"
-    },
-    "watch": {
-        "tsc": {
-            "patterns": [
-                "src"
-            ],
-            "extensions": "ts",
-            "quiet": false
-        },
-        "es6": {
-            "patterns": [
-                "src"
-            ],
-            "extensions": "js",
-            "quiet": false
-        }
-    },
-    "nyc": {
-        "include": [
-            "src/lib/*.ts"
-        ],
-        "extension": [
-            ".ts"
-        ],
-        "exclude": [
-            "build/**/*",
-            "**/*.spec.ts",
-            "**/*.d.ts"
-        ],
-        "require": [
-            "ts-node/register"
-        ],
-        "reporter": [
-            "text-summary",
-            "html"
-        ],
-        "sourceMap": true,
-        "instrument": true
+        "tsc": "tsc"
     },
     "repository": {
         "type": "git",
@@ -79,10 +25,6 @@
     },
     "homepage": "https://github.com/WeatherFX/odata-v4-server#readme",
     "dependencies": {
-        "@types/body-parser": "1.17.0",
-        "@types/cors": "2.8.4",
-        "@types/express": "^4.16.0",
-        "@types/qs": "^6.5.1",
         "body-parser": "^1.18.3",
         "cors": "^2.8.4",
         "deepmerge": "^2.1.1",
@@ -97,26 +39,14 @@
         "tslib": "^1.9.3"
     },
     "devDependencies": {
-        "@types/benchmark": "^1.0.31",
-        "@types/deepmerge": "^2.1.0",
-        "@types/event-stream": "^3.3.34",
-        "@types/jsonstream": "^0.8.30",
-        "@types/lodash": "^4.14.112",
-        "@types/mocha": "^5.2.5",
-        "@types/mongodb": "^3.1.1",
-        "@types/node": "^10.5.2",
-        "@types/request": "^2.47.1",
-        "@types/request-promise": "^4.1.42",
-        "@types/stream-buffers": "^3.0.2",
-        "JSONStream": "^1.3.3",
-        "benchmark": "^2.1.4",
+        "@types/event-stream": "^4.0.0",
+        "@types/stream-buffers": "^3.0.4",
         "chai": "^4.1.2",
         "copyfiles": "^2.0.0",
         "event-stream": "^3.3.4",
         "istanbul": "^1.1.0-alpha.1",
-        "mocha": "^5.2.0",
+        "JSONStream": "^1.3.3",
         "mochawesome": "^3.0.2",
-        "mongodb": "^3.1.1",
         "mssql": "^4.1.0",
         "npm-watch": "^0.3.0",
         "nyc": "^12.0.2",
@@ -133,7 +63,7 @@
         "typedoc": "^0.11.1",
         "typedoc-default-themes": "^0.5.0",
         "typedoc-plugin-external-module-name": "^1.1.1",
-        "typescript": "^2.9.2",
+        "typescript": "^4.5.4",
         "xml-beautifier": "^0.4.0"
     }
 }

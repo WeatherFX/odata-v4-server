@@ -12,11 +12,13 @@
     "noImplicitThis": true,
     "noEmitHelpers": true,
     "importHelpers": true,
-    "sourceMap": true
+    "sourceMap": true,
+    "skipLibCheck": true,
   },
   "exclude": [
-    "node_modules",
+    "./node_modules",
     "build",
-    "test"
+    "src/test",
+    "src/example"
   ]
 }
