@@ -38,7 +38,7 @@ class ValidationServer extends ODataServer{}
 
 describe("ODataValidation", () => {
     it("should throw validation error (@odata.query)", () => {
-        return new Promise((resolve, reject) => {
+        return new Promise<void>((resolve, reject) => {
             try{
                 ValidationServer.execute("/Validation?$filter=Id eq 1").then(() => {
                     reject(new Error("should throw validation error"));
@@ -56,7 +56,7 @@ describe("ODataValidation", () => {
     });
 
     it("should throw validation error (@odata.filter)", () => {
-        return new Promise((resolve, reject) => {
+        return new Promise<void>((resolve, reject) => {
             try{
                 ValidationServer.execute("/Validation(1)?$filter=Id eq 1").then(() => {
                     reject(new Error("should throw validation error"));
@@ -74,7 +74,7 @@ describe("ODataValidation", () => {
     });
 
     it("should pass without validation error (@odata.query)", () => {
-        return new Promise((resolve, reject) => {
+        return new Promise<void>((resolve, reject) => {
             ValidationServer.execute("/Validation").then(() => {
                 resolve();
             }, (err) => {
@@ -85,7 +85,7 @@ describe("ODataValidation", () => {
     });
 
     it("should pass without validation error (@odata.filter)", () => {
-        return new Promise((resolve, reject) => {
+        return new Promise<void>((resolve, reject) => {
             ValidationServer.execute("/Validation(1)").then(() => {
                 resolve();
             }, (err) => {
@@ -96,7 +96,7 @@ describe("ODataValidation", () => {
     });
 
     it("should pass without validation error (@odata.query without @odata.validation)", () => {
-        return new Promise((resolve, reject) => {
+        return new Promise<void>((resolve, reject) => {
             ValidationServer.execute("/NoValidation?$filter=Id eq 1").then(() => {
                 resolve();
             }, (err) => {
@@ -107,7 +107,7 @@ describe("ODataValidation", () => {
     });
 
     it("should pass without validation error (@odata.filter without @odata.validation)", () => {
-        return new Promise((resolve, reject) => {
+        return new Promise<void>((resolve, reject) => {
             ValidationServer.execute("/NoValidation(1)?$filter=Id eq 1").then(() => {
                 resolve();
             }, (err) => {
