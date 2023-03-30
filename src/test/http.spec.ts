@@ -17,7 +17,7 @@ const { expect } = require("chai");
 
 let serverCache = new WeakMap<typeof ODataServer, number>();
 let serverCacheArray = [];
-let serverPort = 5000;
+let serverPort = 6000;
 
 if (typeof after == "function"){
     after(function(){
