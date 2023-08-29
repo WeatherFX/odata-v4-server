@@ -298,12 +298,12 @@ export class ODataServerBase extends Transform{
         }
         if (typeof port == "number"){
             let app = express();
-            app.use((<any>path) || "/", router);
             if (middleware !== undefined && middleware.length > 0) {
                 middleware.forEach((m) => {
                     app.use(m);
                 })
             }
+            app.use((<any>path) || "/", router);
             return app.listen(port, <any>hostname);
         }
         return router;
