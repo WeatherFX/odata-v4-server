@@ -260,8 +260,8 @@ export class ODataServerBase extends Transform{
     static create(port:number):http.Server;
     static create(path:string, port:number):http.Server;
     static create(port:number, hostname:string):http.Server;
-    static create(path?:string | RegExp | number, port?:number | string, hostname?:string):http.Server;
-    static create(path?:string | RegExp | number, port?:number | string, hostname?:string):http.Server | express.Router{
+    static create(path?:string | RegExp | number, port?:number | string, hostname?:string, middleware?: any[]):http.Server;
+    static create(path?:string | RegExp | number, port?:number | string, hostname?:string, middleware?: any[]):http.Server | express.Router{
         let server = this;
         let router = express.Router();
         router.use((req, _, next) => {
@@ -288,6 +288,12 @@ export class ODataServerBase extends Transform{
         router.get("/\\$metadata", server.$metadata().requestHandler());
         router.use(server.requestHandler());
         router.use(server.errorHandler);
+
+        if (middleware !== undefined && middleware.length > 0) {
+            middleware.forEach((m) => {
+                router.use(m);
+            })
+        }
 
         if (typeof path == "number"){
             if (typeof port == "string"){
