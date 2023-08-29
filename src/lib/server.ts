@@ -289,12 +289,6 @@ export class ODataServerBase extends Transform{
         router.use(server.requestHandler());
         router.use(server.errorHandler);
 
-        if (middleware !== undefined && middleware.length > 0) {
-            middleware.forEach((m) => {
-                router.use(m);
-            })
-        }
-
         if (typeof path == "number"){
             if (typeof port == "string"){
                 hostname = "" + port;
@@ -305,6 +299,11 @@ export class ODataServerBase extends Transform{
         if (typeof port == "number"){
             let app = express();
             app.use((<any>path) || "/", router);
+            if (middleware !== undefined && middleware.length > 0) {
+                middleware.forEach((m) => {
+                    app.use(m);
+                })
+            }
             return app.listen(port, <any>hostname);
         }
         return router;
