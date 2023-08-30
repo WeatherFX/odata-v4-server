@@ -303,6 +303,7 @@ export class ODataServerBase extends Transform{
                     app.use(m);
                 })
             }
+            app.use(express.static('public'));
             app.use((<any>path) || "/", router);
             return app.listen(port, <any>hostname);
         }
