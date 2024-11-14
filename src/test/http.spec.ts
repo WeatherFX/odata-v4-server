@@ -4,7 +4,7 @@ import { testFactory } from './server.spec';
 import { MetaTestServer } from './metadata.spec';
 import { TestServer, Foobar } from './test.model';
 import { Product, Category } from "./model/model";
-import { ObjectID } from "mongodb";
+import { ObjectId as ObjectID } from "mongodb";
 import * as request from 'request-promise';
 import * as streamBuffers from "stream-buffers";
 import * as fs from "fs";
@@ -64,7 +64,7 @@ function createTestFactory(it) {
                         if (compare.contentType) {
                             expect(response.headers["content-type"].indexOf(compare.contentType)).to.be.above(-1);
                         }
-                        resolve();
+                        resolve(null);
                     } catch (err) {
                         reject(err);
                     }
@@ -819,10 +819,10 @@ describe("OData HTTP", () => {
     describe("Non existent entity", () => {
         it("should return cannot read property node error", () => {
             return request.get(`http://localhost:3002/NonExistent`, (err, req, res) => {
-                expect(JSON.parse(res).error.message).to.equal("Cannot read property 'node' of undefined");
+                expect(JSON.parse(res).error.message).to.equal("Cannot read properties of undefined (reading 'node')");
             })
             .catch(ex => {
-                expect(JSON.parse(ex.error).error.message).to.equal("Cannot read property 'node' of undefined");
+                expect(JSON.parse(ex.error).error.message).to.equal("Cannot read properties of undefined (reading 'node')");
             });
         });
     });

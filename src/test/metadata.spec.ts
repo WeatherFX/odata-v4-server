@@ -2,7 +2,7 @@
 import { ODataController, ODataServer, ODataProcessor, Edm, odata, ODataStream, createODataServer, ODataQuery } from "../lib/index";
 import { createFilter } from "odata-v4-mongodb";
 import { PassThrough } from "stream";
-import { ObjectID } from "mongodb";
+import { ObjectId as ObjectID } from "mongodb";
 import * as fs from "fs";
 import * as path from "path";
 const { expect } = require("chai");

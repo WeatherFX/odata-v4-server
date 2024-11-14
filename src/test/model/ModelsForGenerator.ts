@@ -1,4 +1,4 @@
-import { ObjectID } from "mongodb";
+import { ObjectId as ObjectID } from "mongodb";
 import { Edm } from "../../lib/index";
 
 const toObjectID = _id => _id && !(_id instanceof ObjectID) ? ObjectID.createFromHexString(_id) : _id;

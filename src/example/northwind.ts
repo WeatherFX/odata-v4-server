@@ -1,4 +1,4 @@
-import { MongoClient, Db, ObjectID } from "mongodb";
+import { MongoClient, Db, ObjectId as ObjectID } from "mongodb";
 import { createQuery } from "odata-v4-mongodb";
 import { Token } from "odata-v4-parser/lib/lexer";
 import { ODataServer, ODataController, odata } from "../lib/index";
@@ -31,7 +31,7 @@ class ProductsController extends ODataController {
         let db: Db = yield mongodb();
         let mongodbQuery = createQuery(query);
         return db.collection("Products").findOne({ _id: new ObjectID(key) }, {
-            fields: mongodbQuery.projection
+            fieldsAsRaw: mongodbQuery.projection
         });
     }
 
@@ -39,7 +39,7 @@ class ProductsController extends ODataController {
     async insert( @odata.body data: any) {
         let db = await mongodb();
         if (data.CategoryId) data.CategoryId = new ObjectID(data.CategoryId);
-        return await db.collection("Products").insert(data).then((result) => {
+        return await db.collection("Products").insertOne(data).then((result) => {
             data._id = result.insertedId;
             return data;
         });
@@ -66,7 +66,7 @@ class CategoriesController extends ODataController {
         let db: Db = yield mongodb();
         let mongodbQuery = createQuery(query);
         return db.collection("Categories").findOne({ _id: new ObjectID(key) }, {
-            fields: mongodbQuery.projection
+            fieldsAsRaw: mongodbQuery.projection
         });
     }
 }
