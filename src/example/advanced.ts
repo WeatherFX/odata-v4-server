@@ -1,4 +1,4 @@
-import { MongoClient, ObjectID, Db } from "mongodb";
+import { MongoClient, ObjectId as ObjectID, Db } from "mongodb";
 import { createQuery } from "odata-v4-mongodb";
 import { Edm, odata, ODataController, ODataServer, ODataQuery, createODataServer, ODataErrorHandler } from "../lib/index";
 import { Category, Product, NorthwindTypes } from "./model";
@@ -22,8 +22,8 @@ export class ProductsController extends ODataController{
     @odata.GET
     async findOne(@odata.key key:string, @odata.query query:ODataQuery){
         let mongodbQuery = createQuery(query);
-        return (await mongodb()).collection("Products").findOne({ _id: key }, {
-            fields: mongodbQuery.projection
+        return (await mongodb()).collection("Products").findOne({ _id: new ObjectID(key) }, {
+            fieldsAsRaw: mongodbQuery.projection
         });
     }
 
@@ -45,8 +45,8 @@ export class CategoriesController extends ODataController{
     @odata.GET
     async findOne(@odata.key() key:string, @odata.query query:ODataQuery){
         let mongodbQuery = createQuery(query);
-        return (await mongodb()).collection("Categories").findOne({ _id: key }, {
-            fields: mongodbQuery.projection
+        return (await mongodb()).collection("Categories").findOne({ _id: new ObjectID(key) }, {
+            fieldsAsRaw: mongodbQuery.projection
         });
     }
 

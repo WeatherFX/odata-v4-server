@@ -269,6 +269,7 @@ export class ODataServerBase extends Transform{
             if (req.headers["odata-maxversion"] && req.headers["odata-maxversion"] < "4.0") return next(new HttpRequestError(500, "Only OData version 4.0 supported"));
             next();
         });
+        // @ts-ignore
         router.use(bodyParser.json());
         if ((<any>server).cors) router.use(cors());
         router.use((req, res, next) => {

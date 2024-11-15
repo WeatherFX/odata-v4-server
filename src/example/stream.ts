@@ -1,7 +1,7 @@
 import * as fs from "fs";
 import * as path from "path";
 import { Writable } from "stream";
-import { MongoClient, Db, ObjectID } from "mongodb";
+import { MongoClient, Db, ObjectId as ObjectID } from "mongodb";
 import { createQuery, createFilter } from "odata-v4-mongodb";
 import { Readable, PassThrough } from "stream";
 import { ODataServer, ODataController, Edm, odata, ODataStream, ODataQuery, ODataHttpContext } from "../lib";
@@ -60,7 +60,7 @@ class ProductsController extends ODataController{
         let db:Db = yield mongodb();
         let mongodbQuery = createQuery(query);
         return db.collection("Products").findOne({ _id: new ObjectID(key) }, {
-            fields: mongodbQuery.projection
+            fieldsAsRaw: mongodbQuery.projection
         });
     }
 
@@ -68,7 +68,8 @@ class ProductsController extends ODataController{
     async insert(@odata.body data:any){
         let db = await mongodb();
         if (data.CategoryId) data.CategoryId = new ObjectID(data.CategoryId);
-        return await db.collection("Products").insert(data).then((result) => {
+        return await db.collection("Products").insertOne(data).then((result) => {
+            // @ts-ignore
             data._id = result.insertedId;
             return data;
         });
@@ -91,7 +92,7 @@ class CategoriesController extends ODataController{
                 }
             );
         let result = yield cursor.toArray();
-        result.inlinecount = yield cursor.count(false);
+        result.inlinecount = result.length;
         return result;
     }
 
@@ -100,7 +101,7 @@ class CategoriesController extends ODataController{
         let db:Db = yield mongodb();
         let mongodbQuery = createQuery(query);
         return db.collection("Categories").findOne({ _id: new ObjectID(key) }, {
-            fields: mongodbQuery.projection
+            fieldsAsRaw: mongodbQuery.projection
         });
     }
 }

@@ -5,7 +5,7 @@ import { Product, Category } from "./model/model";
 import { Meta, Media, TestEntity, MetaTestServer, CompoundKey, EmptyEntity, BaseMeta, Genre } from './metadata.spec';
 import { ProductPromise, CategoryPromise } from "./model/ModelsForPromise";
 import { GeneratorProduct, GeneratorCategory } from "./model/ModelsForGenerator";
-import { ObjectID } from "mongodb";
+import { ObjectId as ObjectID } from "mongodb";
 const { expect } = require("chai");
 const extend = require("extend");
 let categories = require("./model/categories");

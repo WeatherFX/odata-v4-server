@@ -476,7 +476,10 @@ export class ResourcePathVisitor {
     }
 
     protected async VisitFunctionParameter(node: Token, context: any) {
-        let edmParam = context.parameters.find(p => p.name == [node.value.name.value.name]);
+        let edmParam = context.parameters.find(p => {
+            // @ts-ignore
+            return p.name == [node.value.name.value.name];
+        });
         let deserializer = (edmParam && Edm.getURLDeserializer(node[ODATA_TYPE], edmParam.name, edmParam.type, this.serverType.container)) || (_ => _);
 
         context = Object.assign({}, context);

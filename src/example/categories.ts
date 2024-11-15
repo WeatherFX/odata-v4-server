@@ -1,4 +1,4 @@
-import { ObjectID } from "mongodb";
+import { ObjectId as ObjectID } from "mongodb";
 
 export = [
     {"_id": new ObjectID("578f2baa12eaebabec4af289"),"Description":"Soft drinks","Name":"Beverages"},

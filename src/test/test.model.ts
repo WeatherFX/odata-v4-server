@@ -7,7 +7,7 @@ import { ProductPromise, CategoryPromise } from "./model/ModelsForPromise";
 import { GeneratorProduct, GeneratorCategory } from "./model/ModelsForGenerator";
 import { StreamProduct, StreamCategory } from "./model/ModelsForStream";
 import { Readable, PassThrough, Writable } from "stream";
-import { ObjectID } from "mongodb";
+import { ObjectId as ObjectID } from "mongodb";
 import { processQueries, doOrderby, doSkip, doTop } from "./utils/queryOptions"
 import * as fs from "fs";
 import * as path from "path";
@@ -308,6 +308,7 @@ export class MusicController extends ODataController {
 
     @odata.GET.$value
     mp3( @odata.key _: number, @odata.context context: ODataHttpContext) {
+        // @ts-ignore
         globalReadableMediaStrBuffer.put(globalWritableMediaStrBuffer.getContents());
         return globalReadableMediaStrBuffer.pipe(<Writable>context.response);
     }
@@ -499,12 +500,12 @@ export class Product2 {
         term: "UI.ControlHint",
         string: "ReadOnly"
     })
-    _id:ObjectID
+    _id:typeof ObjectID
 
     @Edm.String
     @Edm.Required
     @Edm.Convert(toObjectID)
-    CategoryId:ObjectID
+    CategoryId:typeof ObjectID
 
     @Edm.ForeignKey("CategoryId")
     @Edm.EntityType(Edm.ForwardRef(() => Category2))

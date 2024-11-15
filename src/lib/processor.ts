@@ -1065,7 +1065,7 @@ export class ODataProcessor extends Transform {
             return new Promise(async (resolve, reject) => {
                 try{
                     this.__enableStreaming(part);
-                    if (!result) return resolve();
+                    if (!result) return resolve(null);
 
                     let boundOpName = part.name.split(".").pop();
                     let elementType = result.elementType;
@@ -1597,6 +1597,7 @@ export class ODataProcessor extends Transform {
             let filterAst = queryString;
             let resourceFilterAst = this.resourcePath.ast.value.query && this.resourcePath.ast.value.query.value.options && this.resourcePath.ast.value.query.value.options.find(t => t.type == TokenType.Filter);
             if (typeof filterAst == "string") {
+                // @ts-ignore
                 filterAst = qs.parse(filterAst).$filter;
                 if (typeof filterAst == "string") {
                     filterAst = this.serverType.parser.filter(filterAst, { metadata: this.resourcePath.ast.metadata || this.serverType.$metadata().edmx });
